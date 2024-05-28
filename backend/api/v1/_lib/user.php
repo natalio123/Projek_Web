@@ -18,4 +18,27 @@ class UserHandler extends RequestHandler {
         $prepared_statement->execute();
         return $req;
     }
+
+    function PATCH(){
+        $req = json_decode($this->body, true);
+        $filtered_array = array();
+        
+
+        $where_condition = "";
+        if (!is_null($req)){
+            foreach($req as $key => $value){
+                if (is_null($value)){
+                    continue;
+                }
+                if (is_numeric($value)){
+                    
+                }
+                $filtered_array[$key] = $value;
+            }
+        }
+        var_dump($filtered_array);
+
+        
+    }
+
 }
