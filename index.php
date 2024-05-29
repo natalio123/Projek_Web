@@ -1,57 +1,40 @@
 <?php
 session_start();
 
-$error = '';
+require_once("./utils/network/http_client.php");
+require_once("./config.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Koneksi ke database
-    $servername = "localhost";
-    $username = "root"; // Ganti dengan username Anda
-    $password = ""; // Ganti dengan password Anda
-    $dbname = "user_form"; // Ganti dengan nama database Anda
+$error = "";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $result = HttpClient::post(
+        "$PROJECT_URL/backend/api/v1/login.php",
+        [
+            'email' => $_POST['email'], 
+            'password' => $_POST['password']
+        ]
+    );
+    var_dump($result);
+    ['id' => $user_id, 'user_type' => $user_type] = json_decode($result, true);
+    
+    // Set session
+    $_SESSION['user_id'] = $user_id;
+    $_SESSION['user_type'] = $user_type;  
 
-    // Periksa koneksi
-    if ($conn->connect_error) {
-        die("Koneksi Gagal: " . $conn->connect_error);
+    $_MAP_DASHBOARD = [
+        "pelanggan" => "beranda_dashboard.php",
+        "pelayan" => "pelayan_dashboard.php",
+        "manajer" => "manajer_dashboard.php"
+    ];
+
+    if (array_key_exists($user_type, $_MAP_DASHBOARD)){
+        header("Location: $_MAP_DASHBOARD[$user_type]");
     }
-
-    // Ambil data dari form
-    $email = $_POST['logemail'];
-    $pass = $_POST['logpass'];
-
-    // Query untuk memeriksa login
-    $sql = "SELECT * FROM user_form WHERE email='$email' AND password='$pass'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows == 1) {
-        // Login berhasil, set sesi
-        $row = $result->fetch_assoc();
-        $_SESSION['user_id'] = $row['id'];
-        $_SESSION['user_type'] = $row['user_type'];
-
-        // Arahkan ke halaman sesuai peran (user_type)
-        switch ($_SESSION['user_type']) {
-            case 'pelanggan':
-                header("Location: beranda_dashboard.php");
-                break;
-            case 'pelayan':
-                header("Location: pelayan_dashboard.php");
-                break;
-            case 'manajer':
-                header("Location: manajer_dashboard.php");
-                break;
-            default:
-                header("Location: index.php");
-        }
-    } else {
-        $error = "Login gagal. Periksa kembali email dan password.";
+    else {
+        header("Location: index.php");
     }
-
-    // Tutup koneksi
-    $conn->close();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="gambar/img.jpg">
+    <link rel="icon" href="image/img.jpg">
 </head>
 
 <body>
@@ -78,13 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="center-wrap">
                             <div class="section-text-center">
                                 <h4>Log In</h4>
-                                <img class="pp" src="gambar/pp.png" alt="bg" width="100px">
+                                <img class="pp" src="image/pp.png" alt="bg" width="100px">
                                 <form method="post">
                                     <div class="form-group">
-                                        <input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail1" autocomplete="off">
+                                        <input type="email" name="email" class="form-style" placeholder="Your Email" id="email" autocomplete="off">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
+                                        <input type="password" name="password" class="form-style" placeholder="Your Password" id="password" autocomplete="off">
                                     </div>
                                     <button type="submit" class="btn">LOGIN</button>
                                     <p><a href="#0" class="link">Forgot your password?</a></p>

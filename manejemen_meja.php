@@ -1,35 +1,17 @@
 <?php
 session_start();
 
+require_once('./config.php');
+require_once('./utils/network/http_client.php');
+
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     // Pengguna belum login, arahkan ke halaman login
     header("Location: index.php");
     exit();
 }
 
-// Koneksi ke database (ganti dengan detail koneksi Anda)
-$host = "localhost";
-$username = "root";
-$password = "";
-$db = "reservasi_form";
-
-$conn = new mysqli($host, $username, $password, $db);
-
-// Periksa koneksi
-if ($conn->connect_error) {
-    die("Koneksi Gagal: " . $conn->connect_error);
-}
-
-// Query untuk mendapatkan data reservasi
-$query = "SELECT * FROM reservasi_form";
-$result = $conn->query($query);
-// Ambil data reservasi ke dalam array
-$reservasiData = array();
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $reservasiData[] = $row;
-    }
-}
+$_result = HttpClient::get("$PROJECT_URL/backend/api/v1/reservasi.php");
+$result = json_decode($_result, true);
 
 ?>
 <!DOCTYPE html>
@@ -39,14 +21,14 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Manajer</title>
-    <link rel="stylesheet" href="manager/manajemen meja/style.css">
-    <link rel="icon" href="gambar/img.jpg">
+    <link rel="stylesheet" href="./manajer/manajemen_meja/style.css">
+    <link rel="icon" href="image/img.jpg">
 </head>
 
 <body>
     <header class="header">
         <div class="logo">
-            <a href="#">WarongWarem</a>
+            <a href="#">ANCOL</a>
             <div class="search_box">
                 <input type="text" placeholder="Search ">
             </div>
@@ -60,29 +42,26 @@ if ($result->num_rows > 0) {
             <div class="side_navbar">
                 <span>Main Menu</span>
                 <a href="manajer_dashboard.php" class="active">Dashboard</a>
-                <a href=" laporan_reservasi.php" class="active">Laporan Reservasi</a>
-                <a href="manejemen_meja.php" class="active">Manajemen Meja</a>
+                <a href=" laporan_reservasi.php" class="active">Laporan Tiket</a>
+                <a href="manejemen_meja.php" class="active">Manajemen Tiket</a>
             </div>
         </nav>
         <div class=" history_lists">
             <div class="list1">
                 <div class="row">
-                    <h4>Manajemen Meja</h4>
+                    <h4>Manajemen Tiket</h4>
                 </div>
                 <table>
                     <tr>
                         <th>Nama Pelanggan</th>
                         <th>Status</th>
                     </tr>
-                    <?php
-                        foreach ($reservasiData as $row) {
-                            echo "<tr>
-                        <td>" . $row['nama'] . "</td>
-                        <td>" . ($row['status'] ?? 'Belum Konfirmasi') . "</td>
-                      </tr>";
-                    }
-                $conn->close();
-                ?>
+                    <?php foreach($result as $data): ?>
+                        <tr>
+                            <td><?= $data['nama']?></td>
+                            <td><?= $data['status'] ?? 'Belum Konfirmasi' ?> </td>
+                        </tr>
+                    <?php endforeach ?>
                 </table>
             </div>
         </div>

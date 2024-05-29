@@ -1,6 +1,19 @@
 <?php
-require 'crud_functions.php';
-$reservasiData = getAllReservations($conn);
+
+require_once('crud_functions.php');
+require_once('./config.php');
+require_once('./utils/network/http_client.php');
+
+if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
+    // Pengguna belum login, arahkan ke halaman login
+    header("Location: index.php");
+    exit();
+}
+
+// The APi before is using the same table as `reservation_form` but i think
+// this variable meant to retrieve data from `pelayan_form` table, i may wrong though
+$_result = HttpClient::get("$PROJECT_URL/backend/api/v1/reservasi.php");
+$result = json_decode($_result, true);
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +22,7 @@ $reservasiData = getAllReservations($conn);
 <head>
     <title>Dashboard Pelayan</title>
     <link rel="stylesheet" href="pelayan/style.css">
-    <link rel="icon" href="gambar/img.jpg">
+    <link rel="icon" href="image/img.jpg">
 </head>
 
 <body>
@@ -28,44 +41,44 @@ $reservasiData = getAllReservations($conn);
         <tr>
             <th>No</th>
             <th>Nama Pelanggan</th>
-            <th>Tanggal Reservasi</th>
-            <th>Waktu Reservasi</th>
-            <th>Jumlah Orang</th>
-            <th>Meja</th>
+            <th>Tanggal Kedatangan</th>
+            <th>Waktu Kedatangan</th>
+            <th>Jumlah Tiket</th>
+            <th>Tipe Tiket</th>
             <th>Catatan Khusus</th>
             <th>Status</th>
             <th>Actions</th>
         </tr>
-
-        <?php
-        if ($reservasiData->num_rows > 0) {
-            $no = 1;
-            while ($row = $reservasiData->fetch_assoc()) {
-                echo "<tr>
-                    <td>" . $no++ . "</td>
-                    <td>" . $row['nama'] . "</td>
-                    <td>" . $row['tanggal'] . "</td>
-                    <td>" . $row['waktu'] . "</td>
-                    <td>" . $row['jumlah_orang'] . "</td>
-                    <td>" . $row['jenis_meja'] . "</td>
-                    <td>" . ($row['catatan_khusus'] ?? 'Tidak ada') . "</td>
-                    <td>" . ($row['status'] ?? 'Tidak ada') . "</td>
+        <?php if (count($result) > 0): ?>
+            <!-- Ref: https://stackoverflow.com/questions/3560757/php-equivalent-to-pythons-enumerate -->
+            <?php foreach($result as $data): ?>
+                <tr>
+                    <?php $id_data = $data['id']; ?>
+                    <td><?= $id_data ?></td>
+                    <td><?= $data['nama'] ?></td>
+                    <td><?= $data['tanggal'] ?></td>
+                    <td><?= $data['waktu'] ?></td>
+                    <td><?= $data['jumlah_orang'] ?></td>
+                    <td><?= $data['jenis_meja'] ?></td>
+                    <td><?= $data['catatan_khusus'] ?></td>
+                    <td><?= $data['status'] ?? "Tidak ada"?></td>
                     <td class='action-icons' id='action-icons'>
-                        <a href='javascript:void(0)' onclick='showEditForm(" . json_encode($row) . ")'>
-                            <img src='gambar/edit.svg' alt='Edit'>
+                        <!-- TODO: set in separate js file -->
+                        <a href='javascript:void(0)' onclick='showEditForm(<?= json_encode($data) ?>)'>
+                            <img src='./image/edit.svg' alt='Edit'>
                         </a>
-                        <a href='javascript:void(0)' onclick='confirmDelete(" . $row['id'] . ")'>
-                            <img src='gambar/trash.svg' alt='Delete'>
+                        <!-- TODO: set in separate js file -->
+                        <a href='javascript:void(0)' onclick='confirmDelete(<?= $id_data ?>)'>
+                            <img src='./image/trash.svg' alt='Delete'>
                         </a>
                     </td>
-                </tr>";
-            }
-        } else {
-            echo "<tr>
-                <td colspan='9'>Tidak ada data reservasi.</td>
-            </tr>";
-        }
-        ?>
+                </tr>
+            <?php endforeach;?>
+        <?php else: ?>
+            <tr>
+                <td colspan='8'>Tidak ada data reservasi.</td>
+            </tr>
+        <?php endif; ?>
     </table>
 
     <div id="form-modal" style="display:none;">
@@ -81,14 +94,14 @@ $reservasiData = getAllReservations($conn);
             <label for="waktu">Waktu:</label>
             <input type="time" id="waktu" name="waktu" required><br>
 
-            <label for="jumlah_orang">Jumlah Orang:</label>
+            <label for="jumlah_orang">Jumlah Tiket:</label>
             <input type="number" id="jumlah_orang" name="jumlah_orang" required><br>
 
-            <label for="jenis_meja">Jenis Meja:</label>
-            <select id="jenis-meja" name="jenis-meja" required>
-            <option value="meja-kecil">Meja Kecil</option>
-            <option value="meja-panjang">Meja Panjang</option>
-            <option value="meja-VIP">Meja VIP</option>
+            <label for="jenis_meja">Tipe Tiket:</label>
+            <select id="jenis_meja" name="jenis_meja" required>
+            <option value="Ancol">Ancol</option>
+            <option value="Dufan Ancol">Dufan Ancol</option>
+            <option value="Sea World Ancol">Sea World Ancol</option>
             </select>
 
             <label for="catatan_khusus">Catatan Khusus:</label>
@@ -99,7 +112,7 @@ $reservasiData = getAllReservations($conn);
         </form>
     </div>
 
-    <script src="pelayan/script.js"></script>
+    <script src="./pelayan/script.js"></script>
 </body>
 
 </html>
