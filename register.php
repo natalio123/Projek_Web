@@ -32,7 +32,7 @@ require_once("./config.php");
         class="flex flex-col align-items-center justify-content-center flex-grow-1">
         
         <!-- Box -->
-        <div class="flex flex-col border-2px border-solid bg-[#ecf0f1] py-4 px-5">
+        <div class="flex flex-col border-2px border-solid bg-[#ecf0f1] py-4 px-5 bg-swirl">
             <!-- Title -->
             <div class="flex justify-content-center">
                 <h2 class="font-weight-800 color-[#34495e]">Sign-Up</h2>
@@ -40,16 +40,22 @@ require_once("./config.php");
 
             <!-- Form -->
             <div class="flex flex-col">
-                <form action="#" class="flex flex-col row-gap-0.5">
+                <form action="#" class="flex flex-col row-gap-0.5" method="post">
                     <!-- Full name -->
-                    <div>
-                        <input class="p-0.5" type="text" name="username" id="username" placeholder="username">
+                    <div class="flex flex-row flex-grow"> 
+                        <input 
+                            class="p-0.5 flex flex-row flex-grow-1" 
+                            type="text" 
+                            name="username" 
+                            id="username" 
+                            placeholder="Full Name"
+                        >
                     </div>
     
                     <!-- Email -->
-                    <div>
+                    <div class="flex flex-row flex-grow">
                         <input 
-                            class="p-0.5" 
+                            class="p-0.5 flex flex-row flex-grow-1" 
                             type="email" 
                             name="email" 
                             id="email" 
@@ -59,9 +65,9 @@ require_once("./config.php");
                     </div>
     
                     <!-- Password -->
-                    <div>
+                    <div class="flex flex-row flex-grow-1">
                         <input 
-                            class="p-0.5" 
+                            class="p-0.5 flex flex-row flex-grow-1" 
                             type="password" 
                             name="password" 
                             id="password" 
@@ -80,9 +86,9 @@ require_once("./config.php");
                     </div>
 
                     <!-- Security question -->
-                    <div>
+                    <div class="flex flex-row flex-grow">
                         <input 
-                            class="p-0.5" 
+                            class="p-0.5 flex flex-grow-1" 
                             type="text" 
                             name="security-question" 
                             id="security-question" 
@@ -99,7 +105,10 @@ require_once("./config.php");
                     </div>
                 </form>
             </div>
+            <div class="flex flex-col">
+                <a href="<?= "$PROJECT_URL/index.php" ?>" class="unset color-[#3777f2]">Already have an account?</a>
+            </div>
         </div>
-
+        
     </main>
 </body>
