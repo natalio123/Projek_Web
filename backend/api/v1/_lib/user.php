@@ -35,4 +35,18 @@ class UserHandler extends RequestHandler {
         return $req;
     }
 
+    function DELETE(){
+        $req = json_decode($this->body, true);
+
+        $prepared_statement = $this->connection->prepare("
+            DELETE FROM user_form WHERE email = ?
+        ");
+        
+        $prepared_statement->bind_param('s', $req['email']);
+        
+        $prepared_statement->execute();
+        return $req;
+
+    }
+
 }
