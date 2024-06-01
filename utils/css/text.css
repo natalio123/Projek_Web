@@ -1,0 +1,50 @@
+.text-align-center {
+    text-align: center;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.text-transform-uppercase {
+    text-transform: uppercase;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+/* Color */
+.color-black {
+    color: black
+}
+
+.color-\[\#34495e\]{
+    color: #34495e;
+}
+
+.color-\[\#fce8a6\]{
+    color: #fce8a6;
+}
+
+.color-\[\#102770\]{
+    color: #102770;
+}
+
+.color-\[\#3777f2\]{
+    color: #3777f2;
+}
+
+/* End color */
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.font-weight-700 {
+    font-weight: 700;
+}
+
+.font-weight-800 {
+    font-weight: 800;
+}

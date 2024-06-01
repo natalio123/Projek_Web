@@ -1,0 +1,19 @@
+.bg-aqua {
+    background-color: aqua;
+}
+
+.bg-\[\#ecf0f1\] {
+    background-color: #ecf0f1;
+}
+
+.bg-\[\#fce8a6\]{
+    background-color: #fce8a6;
+}
+
+.bg-\[\#102770\]{
+    background-color: #102770;
+}
+
+.bg-swirl {
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg");
+}
