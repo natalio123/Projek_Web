@@ -10,6 +10,10 @@
     text-transform: uppercase;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 /* Color */
 .color-black {
     color: black
@@ -26,6 +30,12 @@
 .color-\[\#102770\]{
     color: #102770;
 }
+
+.color-\[\#3777f2\]{
+    color: #3777f2;
+}
+
+/* End color */
 
 .font-weight-600 {
     font-weight: 600;
