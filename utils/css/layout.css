@@ -34,3 +34,10 @@
     border-style: solid;
 }
 
+.inset-0 {
+    inset: 0;
+}
+
+.unset {
+    all: unset
+}
