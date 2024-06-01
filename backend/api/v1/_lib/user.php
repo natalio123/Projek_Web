@@ -1,6 +1,32 @@
 <?php
 
+// TODO: set authentication and authorization check
 class UserHandler extends RequestHandler {
+    function GET(){
+        # ref: https://www.w3schools.com/php/php_mysql_prepared_statements.asp
+        $prepared_statement = $this->connection->prepare("
+            SELECT 
+                nama, email, user_type
+            FROM 
+                user_form 
+        ");
+        
+        $prepared_statement->execute();
+        
+        // Get the result
+        $result = $prepared_statement->get_result();
+
+        $response = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+
+        // Close the prepared statement
+        $prepared_statement->close();
+
+        return [
+            "message" => "ok",
+            "data" => $response
+        ];
+    }
     function POST(){
         // get the request body
         $req = json_decode($this->body, true);
