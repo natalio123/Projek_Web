@@ -28,13 +28,13 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
                 <li class="nav-item"><a href="#products" class="nav-link clr-transition">Tiket</a></li>
                 <li class="nav-item"><a href="#about" class="nav-link clr-transition">About</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link clr-transition">Developer</a></li>
-                <li class="nav-item"><a href="./reservasi_dashboard.php" class="nav-link clr-transition">Reservasi</a></li>
+                <li class="nav-item"><a href="./reservasi_dashboard.php" class="nav-link clr-transition">Pemesanan</a></li>
             </ul>
             <div class="social-links">
                 <ul>
-                    <li><i class='bx bxl-instagram nav-icon'></i></li>
-                    <li><i class='bx bxl-twitter nav-icon'></i></li>
-                    <li><i class='bx bxl-facebook nav-icon'></i></li>
+                    <li><a class="nav-icon" href="https://www.instagram.com/ancoltamanimpian/"><img class="nav-icon" src="image/instagram.svg" alt="Instagram" /></a></li>
+                    <li><a class="nav-icon" href="https://x.com/ancoltmnimpian"><img class="nav-icon" src="image/twitter.svg" alt="Twitter" /></a></li>
+                    <li><a class="nav-icon" href="https://www.facebook.com/ancolseaworld/"><img class="nav-icon" src="image/facebook.svg" alt="Facebook" /></a></li>
                 </ul>
             </div>
             <button class="tombol" onclick="logout()">Logout</button>
@@ -118,7 +118,6 @@ Secara keseluruhan, Ancol adalah destinasi wisata yang populer di Jakarta yang m
             <span class="lower-footer-elt" id="lower-footer-elt3"><a href="#" class="policy-link">Privacy • Policy</a></span>
         </div>
     </footer>
-    <link href=' https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <script src="./users/beranda/script.js"></script>
 </body>
 
