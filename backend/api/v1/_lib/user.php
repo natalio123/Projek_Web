@@ -21,24 +21,18 @@ class UserHandler extends RequestHandler {
 
     function PATCH(){
         $req = json_decode($this->body, true);
-        $filtered_array = array();
         
-
-        $where_condition = "";
-        if (!is_null($req)){
-            foreach($req as $key => $value){
-                if (is_null($value)){
-                    continue;
-                }
-                if (is_numeric($value)){
-                    
-                }
-                $filtered_array[$key] = $value;
-            }
-        }
-        var_dump($filtered_array);
-
+        // TODO: only update the specified field
+        $prepared_statement = $this->connection->prepare("
+            UPDATE user_form SET nama = ? , password = ?, user_type = ? WHERE id = ?
+        ");
         
+        $prepared_statement->bind_param('ssss', ...[
+            $req['nama'], $req['password'], $req['user_type'], $req['id']
+        ]);
+        
+        $prepared_statement->execute();
+        return $req;
     }
 
 }
