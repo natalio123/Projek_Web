@@ -1,0 +1,44 @@
+.p-0\.5 {
+    padding: 0.5rem;
+}
+
+.p-1 {
+    padding: 1rem;
+}
+
+.p-4 {
+    padding: 4rem;
+}
+
+.p-5 {
+    padding: 5rem;
+}
+
+.p-20 {
+    padding: 20rem;
+}
+
+.px-0\.5{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.px-5 {
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
+.px-20\%{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.py-20\%{
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+
+.py-4 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}

@@ -1,0 +1,40 @@
+.text-align-center {
+    text-align: center;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.text-transform-uppercase {
+    text-transform: uppercase;
+}
+
+/* Color */
+.color-black {
+    color: black
+}
+
+.color-\[\#34495e\]{
+    color: #34495e;
+}
+
+.color-\[\#fce8a6\]{
+    color: #fce8a6;
+}
+
+.color-\[\#102770\]{
+    color: #102770;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.font-weight-700 {
+    font-weight: 700;
+}
+
+.font-weight-800 {
+    font-weight: 800;
+}
