@@ -15,9 +15,6 @@ $response = json_decode($_response, true);
 
 ?>
 
-<?php
-header("Content-Type: text/html; charset=UTF-8");
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,8 +65,8 @@ header("Content-Type: text/html; charset=UTF-8");
                         <tr>
                             <td><?= $data['tanggal'] ?></td>
                             <td><?= $data['waktu'] ?></td>
-                            <td><?= $data['jumlah_orang'] ?></td>
-                            <td><?= $data['jenis_meja'] ?></td>
+                            <td><?= $data['jumlah_tiket'] ?></td>
+                            <td><?= $data['jenis_tiket'] ?></td>
                             <td><?= $data['status'] ?? "Belum Konfirmasi" ?></td>
                         </tr>
                     <?php endforeach ?>

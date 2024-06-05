@@ -15,14 +15,13 @@ $result = json_decode($_result, true);
 
 ?>
 
-<?php
-header("Content-Type: text/html; charset=UTF-8");
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Manajer</title>
     <link rel="stylesheet" href="./manajer/style.css" />
     <link rel="icon" href="image/img.jpg">
@@ -46,25 +45,25 @@ header("Content-Type: text/html; charset=UTF-8");
             <div class="side_navbar">
                 <span>Main Menu</span>
                 <a href="manajer_dashboard.php" class="active">Dashboard</a>
-                <a href=" laporan_reservasi.php" class="active">Laporan Reservasi</a>
-                <a href="manejemen_meja.php" class="active">Manajemen Meja</a>
+                <a href=" laporan_reservasi.php" class="active">Laporan Tiket</a>
+                <a href="manejemen_meja.php" class="active">Manajemen Tiket</a>
             </div>
         </nav>
 
         <div class="main-body">
             <h2>Dashboard</h2>
 
-            <div class="promo_card" style="height: 125px; margin: 20px;">
+            <div class="promo_card" style="height: 125px; margin: 12px;">
                 <h1>Welcome </h1>
                 <span>Manajer Ancol</span>
             </div>
 
             <div class=" history_lists">
                 <div class="list1">
-                    <div class="row" style="margin: 1rem 40px;">
+                    <div class="row">
                         <h4>Laporan Tiket</h4>
                     </div>
-                    <table style="margin: 0 40px;">
+                    <table>
                         <tr>
                             <th>Tanggal</th>
                             <th>Waktu</th>
@@ -76,9 +75,9 @@ header("Content-Type: text/html; charset=UTF-8");
                             <tr>
                                 <td><?= $data['tanggal'] ?></td>
                                 <td><?= $data['waktu'] ?></td>
-                                <td><?= $data['jumlah_orang'] ?></td>
-                                <td><?= $data['jenis_meja'] ?></td>
-                                <td><?= $data['status'] ?? 'Belum konfigurasi' ?></td>
+                                <td><?= $data['jumlah_tiket'] ?></td>
+                                <td><?= $data['jenis_tiket'] ?></td>
+                                <td><?= $data['status'] ?? 'Belum konfirmasi' ?></td>
                             </tr>
                         <?php endforeach ?>
                     </table>
