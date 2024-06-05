@@ -32,3 +32,26 @@ document.querySelectorAll(".nav-link").forEach((item) => {
     }
   });
 });
+
+// tombol developer
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleButtons = document.querySelectorAll(".toggle-btn");
+
+  toggleButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const content = button.closest(".content");
+      const aboutImg = content.querySelector(".about-img");
+      const text = content.querySelector(".text");
+
+      aboutImg.classList.toggle("active");
+      text.classList.toggle("active");
+      button.classList.toggle("active");
+
+      if (button.classList.contains("active")) {
+        button.textContent = "Show Less";
+      } else {
+        button.textContent = "Show More";
+      }
+    });
+  });
+});

@@ -33,9 +33,17 @@ body {
   font-family: "Pompiere", cursive;
   font-size: 1.2rem;
   color: var(--text-clr);
-  background: url("../../gambar/bg.jpg") no-repeat center center fixed;
-  background-size: cover;
-  transition: background-color 1000ms;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: -1;
 }
 
 ul {
@@ -213,12 +221,17 @@ header {
 }
 .nav-icon {
   cursor: pointer;
-  color: var(--nav-txt-clr);
-  font-size: 1.4rem;
+  transition: filter 0.3s ease;
 }
-.nav-icon:hover {
-  color: var(--bg-clr);
+.nav-icon img {
+  filter: brightness(0) saturate(100%) invert(99%) sepia(0%) saturate(0%)
+    hue-rotate(0deg) brightness(108%) contrast(100%);
 }
+.nav-icon:hover img {
+  filter: brightness(0) saturate(100%) invert(83%) sepia(7%) saturate(1573%)
+    hue-rotate(218deg) brightness(95%) contrast(88%);
+}
+
 @media screen and (max-width: 768px) {
   .nav-icon {
     color: var(--text-clr-bg);
@@ -231,6 +244,19 @@ header {
 }
 .section-one {
   height: 81.5vh;
+  position: relative;
+  z-index: 1;
+}
+
+.section-one::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: -1;
 }
 @media screen and (max-width: 846px) {
   .section-one {
@@ -261,11 +287,13 @@ header {
   max-width: 50rem;
   color: var(--text-clr);
   transition: font-size 1000ms;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 .hook-sub_title {
   font-size: 30px;
   line-height: 157.5%;
   color: var(--text-clr);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 @media screen and (min-width: 414px) {
   .hook-title {
@@ -278,40 +306,167 @@ header {
   background-color: var(--sec-two-bg-clr);
 }
 
-.judul_dev {
-  margin-left: 50px;
+.about {
+  padding: 7.5rem 7% 1.4rem;
+  background-color: #f4f4f4;
 }
-.developer {
-  margin-left: 50px;
-  margin-top: 2rem;
-  display: flex;
-  flex-wrap: wrap-reverse;
+
+.about h2 {
   text-align: center;
+  font-size: 2.6rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  color: rgb(73, 73, 73);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.developer-one img {
-  max-width: calc(200 * 0.06rem);
-  margin-right: 30px;
-}
-.developer-two img {
-  max-width: calc(150 * 0.06rem);
-  margin-right: 30px;
-}
-.developer-three img {
-  max-width: calc(130 * 0.06rem);
-  margin-right: 30px;
-}
-.developer-four img {
-  max-width: calc(160 * 0.06rem);
-  margin-right: 30px;
+.about h2 span {
+  color: var(--sec-two-bg-clr);
 }
 
+.about .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  z-index: 1;
+}
+
+.about .row .content {
+  display: flex;
+  width: 45%;
+  height: 15rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  z-index: 3;
+}
+
+.about .row .content .about-img {
+  position: relative;
+  width: 30%;
+  z-index: 3;
+  left: 1rem;
+  transition: all 0.3s ease;
+}
+.about .row .content .about-img.active {
+  position: relative;
+  width: 30%;
+  z-index: 3;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.about .row .content .about-img img {
+  height: 15rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  z-index: 3;
+}
+.about .row .content .text {
+  position: relative;
+  height: 15rem;
+  width: 0%;
+  padding: 1rem 1rem;
+  color: #fefefe;
+  background-color: #222;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  z-index: 1;
+}
+.about .row .content .text.active {
+  height: 15rem;
+  width: 60%;
+  left: 0;
+  padding: 1rem 1rem;
+  color: #fefefe;
+  background-color: #222;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  transition: all 0.3s ease;
+}
+
+.about .row .content .text h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.about .row .content .text p {
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.6rem;
+  text-align: justify;
+}
+.bg-link-medsos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.link-medsos {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgb(73, 73, 73);
+  width: 50%;
+  border-radius: 1rem;
+}
+.link-medsos a {
+  color: var(--primary);
+  margin: 0;
+  padding: 0.3rem 0.1rem 0 0.1rem;
+}
+.link-medsos a:hover {
+  color: var(--bg);
+}
+.toggle-btn {
+  position: relative;
+  right: 1rem;
+  width: 10%;
+  height: 15rem;
+  font-size: 1.2rem;
+  background-color: #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: "Pompiere", cursive;
+  transition: all 0.3s ease;
+  z-index: 3;
+}
+.toggle-btn.active {
+  width: 10%;
+  height: 15rem;
+  right: 0;
+  font-size: 1.2rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: "Pompiere", cursive;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #555;
+}
 /* ----- section three: Ad products section ----- */
 .section-three {
   margin-bottom: 2rem;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
 }
+
+.section-three::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
+
 @media screen and (min-width: 843px) {
   .section-three {
     margin-bottom: 0;
@@ -323,14 +478,15 @@ header {
   }
   .section-three {
     align-items: flex-start;
-    background: url("RPL-PROJECT/image/bg.jpg");
+    background: url("image/bg.jpg");
   }
 }
 
 .s-three-upper-img-container img {
   width: 100%;
   margin-bottom: 1.3rem;
-  transition: width 1000ms;
+  height: 22rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 2);
 }
 @media screen and (min-width: 992px) {
   .s-three-upper-img-container img {
@@ -352,13 +508,16 @@ header {
   max-width: 20rem;
   margin-bottom: 1.5rem;
   color: var(--primary-clr-alt);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 2.7);
 }
 .s-three-desc {
   margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 2.7);
 }
 .s-three-price {
   font-size: 1.4rem;
   margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 2.7);
 }
 .ad-buy-btn {
   max-width: calc(147 * 0.06rem);
@@ -386,7 +545,7 @@ header {
 }
 @media screen and (max-width: 846px) {
   .section-two {
-    margin-top: 5rem;
+    margin-top: 0;
   }
   .s-two-slogan {
     margin-bottom: 2rem;
@@ -408,7 +567,7 @@ header {
   cursor: pointer;
   /* From https://css.glass */
   background: rgba(54, 79, 99, 0.04);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8.4px);
   -webkit-backdrop-filter: blur(8.4px);
   width: 100%;
@@ -447,13 +606,16 @@ header {
 }
 
 .product-one img {
-  max-width: calc(300 * 0.06rem);
+  width: calc(300 * 0.06rem);
+  height: calc(300 * 0.06rem);
 }
 .product-two img {
-  max-width: calc(300 * 0.06rem);
+  width: calc(300 * 0.06rem);
+  height: calc(300 * 0.06rem);
 }
 .product-three img {
-  max-width: calc(300 * 0.06rem);
+  width: calc(300 * 0.06rem);
+  height: calc(300 * 0.06rem);
 }
 @media screen and (min-width: 700px) {
   .product {
@@ -468,6 +630,9 @@ header {
 
 .product .buy-btn {
   cursor: pointer;
+  font-family: "Pompiere";
+  font-size: 1.4rem;
+  font-weight: 700;
   bottom: 0;
   left: -0.1rem;
   margin: 0 0 0.5rem 0;
@@ -475,7 +640,9 @@ header {
   color: var(--text-clr-bg);
   background-color: var(--primary-clr);
   clip-path: polygon(100% 0, 75% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);
+  border: none;
 }
+
 .product .buy-btn:hover {
   text-decoration: underline;
 }
@@ -544,4 +711,113 @@ footer {
 
 .policy-link {
   color: var(--primary-clr-alt);
+}
+/* 
+
+
+/* */
+/*  */
+
+/* Ponsel */
+@media only screen and (max-width: 767px) {
+  html,
+  body {
+    max-width: 100%; /* Lebar maksimum 100% dari lebar viewport */
+    overflow-x: hidden; /* Menyembunyikan overflow horizontal */
+  }
+  /* Header Responsif */
+  header {
+    align-items: center; /* Tengahkan elemen dalam header */
+  }
+
+  /* Section One (Hero Section) Responsif */
+  .section-one {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Tengahkan konten secara vertikal */
+    align-items: center; /* Tengahkan konten secara horizontal */
+    text-align: center; /* Tengahkan teks */
+    height: auto; /* Gunakan tinggi otomatis agar sesuai dengan konten */
+  }
+
+  .hook-title {
+    font-size: 2rem; /* Ubah ukuran font */
+    margin-top: 2rem; /* Sesuaikan jarak atas */
+  }
+
+  /* Section Two (Developer Section) Responsif */
+  .about {
+    padding: 3rem 1rem; /* Sesuaikan padding */
+  }
+
+  .about h2 {
+    font-size: 2rem; /* Ubah ukuran font */
+    padding-top: 4rem;
+  }
+
+  /* Section Three (Ad Products Section) Responsif */
+  .section-three {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Tengahkan konten secara vertikal */
+    align-items: center; /* Tengahkan konten secara horizontal */
+    height: auto; /* Gunakan tinggi otomatis agar sesuai dengan konten */
+    padding: 2rem 0; /* Sesuaikan padding */
+  }
+
+  .s-three-upper-img-container img {
+    width: 100%; /* Sesuaikan lebar gambar */
+    height: auto; /* Gunakan tinggi otomatis */
+    margin-bottom: 1rem; /* Sesuaikan jarak bawah */
+  }
+
+  .s-three-title {
+    font-size: 2rem; /* Ubah ukuran font */
+    margin-bottom: 1rem; /* Sesuaikan jarak bawah */
+  }
+
+  .s-three-desc {
+    margin-bottom: 1rem; /* Sesuaikan jarak bawah */
+  }
+
+  /* Section Four (Product Section) Responsif */
+  .s-two-products {
+    justify-content: center; /* Tengahkan produk secara horizontal */
+  }
+
+  .product {
+    margin: 0.5rem; /* Sesuaikan jarak antar produk */
+  }
+
+  /* Footer Responsif */
+  footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Tengahkan footer secara vertikal */
+    align-items: center; /* Tengahkan footer secara horizontal */
+    padding: 2rem 0; /* Sesuaikan padding */
+  }
+
+  /* developer */
+  .about .row .content {
+    width: 100%; /* Mengatur lebar menjadi 100% */
+    height: auto; /* Mengubah tinggi menjadi otomatis */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  }
+
+  .about .row .content .text {
+    width: 100%; /* Mengatur lebar menjadi 100% */
+    height: auto; /* Mengubah tinggi menjadi otomatis */
+    padding: 1rem; /* Menyesuaikan padding */
+  }
+
+  .about .row .content .about-img img {
+    height: 100%;
+    margin-left: -1rem;
+    box-shadow: none;
+  }
+
+  .toggle-btn {
+    display: none; /* Menyembunyikan tombol toggle di layar ponsel */
+  }
 }
