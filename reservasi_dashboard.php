@@ -9,6 +9,8 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
 
 require_once('./config.php');
 require_once('./utils/network/http_client.php');
+require_once('./config.php');
+require_once('./utils/network/http_client.php');
 
 $message = "";
 
@@ -119,3 +121,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+

@@ -18,3 +18,4 @@ function logout() {
   // Hapus sesi dan arahkan ke halaman login
   window.location.href = "logout.php";
 }
+

@@ -4,12 +4,20 @@ require_once('crud_functions.php');
 require_once('./config.php');
 require_once('./utils/network/http_client.php');
 
+require_once('crud_functions.php');
+require_once('./config.php');
+require_once('./utils/network/http_client.php');
+
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     // Pengguna belum login, arahkan ke halaman login
     header("Location: index.php");
     exit();
 }
 
+// The APi before is using the same table as `reservation_form` but i think
+// this variable meant to retrieve data from `pelayan_form` table, i may wrong though
+$_result = HttpClient::get("$PROJECT_URL/backend/api/v1/reservasi.php");
+$result = json_decode($_result, true);
 // The APi before is using the same table as `reservation_form` but i think
 // this variable meant to retrieve data from `pelayan_form` table, i may wrong though
 $_result = HttpClient::get("$PROJECT_URL/backend/api/v1/reservasi.php");
@@ -28,6 +36,9 @@ $result = json_decode($_result, true);
 </head>
 <body>
     <header>
+        <h3>DASHBOARD PELAYAN</h3>
+        <form action="" method="post">
+            <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Cari...">
         <h3>DASHBOARD PELAYAN</h3>
         <form action="" method="post">
             <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Cari...">

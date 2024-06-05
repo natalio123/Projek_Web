@@ -2,6 +2,8 @@
 
 // TODO: encapsulate the DB connection process in one separate file
 
+// TODO: encapsulate the DB connection process in one separate file
+
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -30,3 +32,4 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 ?>
+

@@ -119,10 +119,9 @@ table {
   margin-right: 400px;
 }
 
-table td,
-th {
-  padding: 0.2rem 0.8rem;
-}
+table td, th{
+    padding: 0.2rem 0.8rem;
+  }
 
 table th {
   font-size: 15px;
